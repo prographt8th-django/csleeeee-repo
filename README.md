@@ -12,6 +12,10 @@
    * Key를 지정해서 Value를 저장하게되며 저장된 데이터를 사용할 때에는 지정된 Key를 통해서 저장된 데이터를 사용하게 된다.
 
 * Celery란
+  * Use
+    * 자정 마다 영수증 검증
+    * Batch Job 으로 활용
+    * 브로커
 ### 2. DRF Generics vs VietSet and Serializer and Swagger
 
 ### 3. Django Error Log and Middleware
