@@ -1,3 +1,17 @@
 from django.db import models
 
-# Create your models here.
+
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class HumanModel(BaseModel):
+    name = models.CharField(max_length=32, unique=True, null=True, blank=True)
+    description = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.name
