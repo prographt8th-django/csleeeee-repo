@@ -20,6 +20,8 @@
     * 자정 마다 영수증 검증
     * Batch Job 으로 활용
     * 브로커
+  * Python 동시성 프로그래밍에서 가장 많이 사용하는 방법 중 하나이며, 분산 메시지 전달을 기반으로 동작하는 비동기 작업 큐(Asynchronous Task/Job Queue)이다.
+  * 이 API에 포함된 외부 연동이나 무거운 작업들은 Celery Task로 정의해서 Broker(RabbitMQ)와 Consumer(Celery Worker) 를 이용해 Async하게 처리함으로 써 사용자에게 가능한 빠른 응답 결과를 제공할 수 있을 것이다.
 ### 2. DRF Generics vs VietSet and Serializer and Swagger
 
 ### 3. Django Error Log and Middleware
