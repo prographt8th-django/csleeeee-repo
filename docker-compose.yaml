@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    container_name: prography
+    command: poetry run python manage.py runserver 0:8888
+    ports:
+      - '8888:8888'
+    volumes:
+      - '.:/code/'
+    depends_on:
+      - redis
+    platform: linux/amd64
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - '6379:6379'
