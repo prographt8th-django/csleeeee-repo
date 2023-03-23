@@ -1,3 +1,8 @@
+from .models import Human
+
 from django.contrib import admin
 
-# Register your models here.
+
+@admin.register(Human)
+class HumanAdmin(admin.ModelAdmin):
+    list_display = ['name', 'description', 'likes']
