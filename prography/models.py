@@ -12,6 +12,7 @@ class BaseModel(models.Model):
 class HumanModel(BaseModel):
     name = models.CharField(max_length=32, unique=True, null=True, blank=True)
     description = models.TextField(max_length=500)
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
