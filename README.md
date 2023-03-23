@@ -14,6 +14,9 @@
   * No-SQL에도 여러 분류에 따라서 데이터베이스를 나눌 수 있지만 Redis는 그중에서도 Key-Value Type 데이터베이스에 속한다.
   * Key를 지정해서 Value를 저장하게되며 저장된 데이터를 사용할 때에는 지정된 Key를 통해서 저장된 데이터를 사용하게 된다.
   * 웹서버는 데이터가 존재하는지 Cache(Redis) 서버에 먼저 확인, 데이터가 있다면 DB 데이터를 조회하지 않고 Cache(Redis) 결과값을 Return
+  * I think Redis is a NoSQL so I am not need RDBMS
+  * 우리가 직접 세팅하지 않더라도 Redis는 자동으로 .rdb 라는 확장자의 파일에 인메모리 데이터를 저장하도록 디폴트 설정 되어있다.
+  * RDB(snapshot)는 순간적으로 메모리에 있는 내용을 스냅샷을 떠서 DISK에 옮겨 담는 방식이다.
 
 * Celery란
   * Info
