@@ -1,2 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block content %}
+    {% for human in human_list %}
+        {{ human }}
+    {% endfor %}
+{% endblock %}
