@@ -15,4 +15,4 @@ class HumanModel(BaseModel):
     likes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}-{self.likes}"
