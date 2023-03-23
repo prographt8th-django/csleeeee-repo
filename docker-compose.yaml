@@ -17,3 +17,4 @@ services:
     container_name: redis
     ports:
       - '6379:6379'
+    platform: linux/amd64
