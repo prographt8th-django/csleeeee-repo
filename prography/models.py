@@ -9,7 +9,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class HumanModel(BaseModel):
+class Human(BaseModel):
     name = models.CharField(max_length=32, unique=True, null=True, blank=True)
     description = models.TextField(max_length=500)
     likes = models.IntegerField(default=0)
