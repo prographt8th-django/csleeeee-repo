@@ -3,6 +3,8 @@
 
 {% block content %}
     {% for human in human_list %}
-        {{ human }}
+        {{ human.name }} <br>
+        {{ human.description }} <br>
+        {{ human.likes }}
     {% endfor %}
 {% endblock %}
