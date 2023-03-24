@@ -3,8 +3,14 @@
 
 {% block content %}
     {% for human in human_list %}
-        {{ human.name }} <br>
-        {{ human.description }} <br>
-        {{ human.likes }}
+        <div class="card m-5" style="width: 18rem;">
+            <img class="card-img-top" src="https://source.unsplash.com/random" alt="Card random Image" width="300" height="300">
+            <div class="card-body">
+                <h5 class="card-title">{{ human.name }}</h5>
+                <p class="card-text">{{ human.description }}</p>
+                <p class="card-vote">{{ human.likes }}</p>
+                <a href="#" class="btn btn-primary">좋아요</a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
