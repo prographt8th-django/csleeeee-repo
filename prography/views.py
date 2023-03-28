@@ -1,6 +1,6 @@
 from .models import Human
 
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views.generic import ListView, CreateView, UpdateView
 from django.core.cache import cache
 from django.conf import settings
@@ -18,21 +18,30 @@ class HumanLikeListView(ListView):
         ordering = self.request.GET.get('ordering', 'likes')
         return ordering
     
+    def get(self, request, *args, **kwargs):
+        human = Human.objects.all()
+        for h in human:
+            cache.get(h.id)
+            print(cache.get(h.id))
+
+        return super().get(request, *args, **kwargs)
+    
 
 class HumanLikeCreateUpdateView(CreateView, UpdateView):
     model = Human
 
     def get(self, request, *args: str, **kwargs):
-        if 'likes' in cache:
-            likes = cache.get('likes')
-            return Response(likes)
+        human_id = kwargs['pk']
+
+        if cache.get(human_id):
+            likes = cache.get(human_id)
+            print("get cache", likes)
         else:
-            human = Human.objects.all()
-            results = [h.to_json() for h in human]
-            cache.set(human, results, timeout=CACHE_TTL)
-
-    def post(self, request, *args: str, **kwargs):
-        if 'likes' in cache:
-            likes = cache.set('likes')
-            return Response(likes)
-
+            try:
+                obj = Human.objects.get(pk=human_id)
+                cache.set(human_id, obj.likes + 1, timeout=CACHE_TTL)
+                print("set cache")
+            except Human.DoesNotExist:
+                return HttpResponse("Does not exist")
+            return HttpResponse("Ok")
+        return HttpResponse("Correctly")
