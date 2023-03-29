@@ -1,16 +1,14 @@
 [tool.poetry]
 name = "csleeeee-repo"
 version = "0.1.0"
-description = "Studying Django and others"
+description = ""
 authors = ["2044smile <2044smile@naver.com>"]
 readme = "README.md"
 packages = [{include = "csleeeee_repo"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 django = "^4.1.7"
-celery = "^5.2.7"
-redis = "^4.5.2"
 djangorestframework = "^3.14.0"
 
 
