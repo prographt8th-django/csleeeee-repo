@@ -11,10 +11,4 @@ services:
       - '8000:8000'
     volumes:
       - '.:/code/'
-    depends_on:
-      - redis
-    platform: linux/amd64
-  redis:
-    image: redis
-    container_name: redis
     platform: linux/amd64
