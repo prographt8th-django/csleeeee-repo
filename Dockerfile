@@ -23,6 +23,6 @@ RUN poetry install --no-root
 # copy project
 COPY . .
 
-CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8888"]
+CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 EXPOSE 8000
