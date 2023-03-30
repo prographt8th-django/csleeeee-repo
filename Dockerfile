@@ -25,4 +25,4 @@ COPY . .
 
 CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8888"]
 
-EXPOSE 8888
+EXPOSE 8000

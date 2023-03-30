@@ -3,6 +3,8 @@ version: '3'
 services:
   web:
     build: .
+    environment:
+      - REDIS_HOST=redis
     container_name: prography
     command: poetry run python manage.py runserver 0:8000
     ports:
@@ -15,6 +17,4 @@ services:
   redis:
     image: redis
     container_name: redis
-    ports:
-      - '6379:6379'
     platform: linux/amd64
