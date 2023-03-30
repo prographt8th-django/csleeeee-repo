@@ -4,9 +4,9 @@ services:
   web:
     build: .
     container_name: prography
-    command: poetry run python manage.py runserver 0:8888
+    command: poetry run python manage.py runserver 0:8000
     ports:
-      - '8888:8888'
+      - '8000:8000'
     volumes:
       - '.:/code/'
     depends_on:
