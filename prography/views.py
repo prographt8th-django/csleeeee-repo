@@ -19,12 +19,26 @@ class HumanLikeListView(ListView):
         return ordering
     
     def get(self, request, *args, **kwargs):
-        human = Human.objects.all()
-        for h in human:
-            cache.get(h.id)
-            print(cache.get(h.id))
+        objects = Human.objects.all()
+        for obj in objects:
+            if cache.get(obj.id) == None:
+                cache.set(obj.id, obj.likes, timeout=3600*24)
+            else:
+                pass
 
         return super().get(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        objects = context['object_list']
+
+        cache_dict = {}
+        for obj in objects:
+            cache_dict[obj.id] = cache.get(obj.id)
+
+        context['cache_likes'] = cache_dict
+        
+        return context
     
 
 class HumanLikeCreateUpdateView(CreateView, UpdateView):
@@ -35,12 +49,8 @@ class HumanLikeCreateUpdateView(CreateView, UpdateView):
 
         if cache.get(human_id):
             likes = cache.get(human_id)
-            print("get cache", likes)
-        else:
             try:
-                obj = Human.objects.get(pk=human_id)
-                cache.set(human_id, obj.likes + 1, timeout=CACHE_TTL)
-                print("set cache")
+                cache.set(human_id, likes + 1)
             except Human.DoesNotExist:
                 return HttpResponse("Does not exist")
             return HttpResponse("Ok")
