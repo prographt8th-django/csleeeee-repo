@@ -1,11 +1,10 @@
 from .models import Human
 
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import HttpResponse, redirect
 from django.views.generic import ListView, CreateView, UpdateView
 from django.core.cache import cache
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from rest_framework.response import Response
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -21,7 +20,7 @@ class HumanLikeListView(ListView):
     def get(self, request, *args, **kwargs):
         objects = Human.objects.all()
         for obj in objects:
-            if cache.get(obj.id) == None:
+            if cache.get(obj.id) is not None:
                 cache.set(obj.id, obj.likes, timeout=3600*24)
             else:
                 pass
@@ -47,11 +46,10 @@ class HumanLikeCreateUpdateView(CreateView, UpdateView):
     def get(self, request, *args: str, **kwargs):
         human_id = kwargs['pk']
 
-        if cache.get(human_id):
-            likes = cache.get(human_id)
+        if cache.get(human_id) is not None:
             try:
-                cache.set(human_id, likes + 1)
+                cache.incr(human_id)
             except Human.DoesNotExist:
-                return HttpResponse("Does not exist")
-            return HttpResponse("Ok")
-        return HttpResponse("Correctly")
+                return HttpResponse("Except Does not exist")
+            return HttpResponse("OK")
+        return HttpResponse("If Does not exist")
