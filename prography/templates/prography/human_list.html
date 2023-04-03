@@ -24,9 +24,9 @@
                 </svg> 
                 {% for key, value in cache_likes.items %}
                     {% if human.id == key %}
-                        {% if value == None %}
-                            {{ human.likes }}
-                        {% endif %}
+                        {{ value }}
+                    {% elif key == None %}
+                        {{ human.likes }}
                     {% endif %}
                 {% endfor %}
             </a>
