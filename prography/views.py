@@ -1,12 +1,27 @@
 from .models import Human
+from .serializers import HumanSerializer
 
 from django.shortcuts import HttpResponse, redirect
 from django.views.generic import ListView, CreateView, UpdateView
 from django.core.cache import cache
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from rest_framework.views import APIView, Response
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+
+class HumanListAPIView(APIView):
+    def get(self, request):
+        serializer = HumanSerializer(Human.objects.all(), many=True) # 정보를 가져올 때  Serializer 에서 검사한다.
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = HumanSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True): # 정보를 저장할 때 Serializer 에서 검사한다.
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
 class HumanLikeListView(ListView):
