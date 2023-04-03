@@ -3,4 +3,5 @@ from .models import Human
 
 class HumanSerializer(ModelSerializer):
 	class Meta:
- 		model = Human
+		model = Human
+		fields = '__all__'
