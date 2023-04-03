@@ -20,8 +20,8 @@ class HumanLikeListView(ListView):
     def get(self, request, *args, **kwargs):
         objects = Human.objects.all()
         for obj in objects:
-            if cache.get(obj.id) is not None:
-                cache.set(obj.id, obj.likes, timeout=3600*24)
+            if cache.get(obj.id) is None:
+                cache.set(obj.id, obj.likes, timeout=600)
             else:
                 pass
 
@@ -51,5 +51,5 @@ class HumanLikeCreateUpdateView(CreateView, UpdateView):
                 cache.incr(human_id)
             except Human.DoesNotExist:
                 return HttpResponse("Except Does not exist")
-            return HttpResponse("OK")
+            return redirect("HumanLike")
         return HttpResponse("If Does not exist")
