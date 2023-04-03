@@ -21,6 +21,10 @@ class HumanLikeListView(ListView):
         objects = Human.objects.all()
         for obj in objects:
             if cache.get(obj.id) is None:
+                """
+                timeout=600, if you use your time (600s), clear the cache
+                cache value desc: {obj.id: obj.likes}
+                """
                 cache.set(obj.id, obj.likes, timeout=600)
             else:
                 pass
