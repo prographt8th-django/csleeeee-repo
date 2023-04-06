@@ -10,6 +10,10 @@ from rest_framework.views import APIView, Response
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
+"""
+refactor: 현재 CreateView UpdateView 를 목적에 맞게 사용하고 있지 않음
+"""
+
 
 class HumanListAPIView(APIView):
     def get(self, request):
