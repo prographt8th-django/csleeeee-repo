@@ -2,15 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <div class="m-3 pb-5">
-        <button type="button" class="btn btn-info float-end mx-1">
-            <a href="?ordering=-likes" class="text-decoration-none text-black">내림차순</a>
-        </button>
-        <button type="button" class="btn btn-info float-end mx-1">
-            <a href="?ordering=likes" class="text-decoration-none text-black">오름차순</a>
-        </button>
-    </div>
-
 <div class="card-group">
     {% for human in human_list %}
     <div class="card m-3 w-25">
