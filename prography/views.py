@@ -8,15 +8,28 @@ from django.core.cache import cache
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from rest_framework.views import APIView, Response
+from drf_yasg.utils import swagger_auto_schema
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 class HumanListAPIView(APIView):
+    @swagger_auto_schema(
+        operation_id='GET Human',
+        operation_description='Human 데이터를 가져옵니다.',
+        query_serializer=HumanSerializer,
+        tags=['Human']
+    )
     def get(self, request):
         serializer = HumanSerializer(Human.objects.all(), many=True) # 정보를 가져올 때  Serializer 에서 검사한다.
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        operation_id='CREATE Human',
+        operation_description='Human 데이터를 만듭니다.',
+        request_body=HumanSerializer,
+        tags=['Human']
+    )
     def post(self, request):
         serializer = HumanSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True): # 정보를 저장할 때 Serializer 에서 검사한다.
