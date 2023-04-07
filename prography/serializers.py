@@ -5,7 +5,7 @@ class HumanSerializer(ModelSerializer):
 
 	def validate(self, attrs):
 		if attrs['likes'] != 0:
-			raise ValidationError('기본 값이 0 이며 수정할 수 없습니다.')
+			raise ValidationError("I used redis cache, so I souldn't change it")
 		return attrs
 	class Meta:
 		model = Human

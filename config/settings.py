@@ -141,5 +141,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
     ],
-    'NON_FIELD_ERRORS_KEY': "I used redis cache, so I souldn't change it"
+    'NON_FIELD_ERRORS_KEY': "ERROR"
 }
