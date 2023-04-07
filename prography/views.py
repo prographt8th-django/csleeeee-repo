@@ -33,11 +33,8 @@ class HumanListAPIView(APIView):
     def post(self, request):
         serializer = HumanSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True): # 정보를 저장할 때 Serializer 에서 검사한다.
-            if serializer.likes != 0:
-                return Response(serializer.data, status=400)
-            else:
-                serializer.save()
-                return Response(serializer.data, status=201)
+            serializer.save()
+            return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
 
