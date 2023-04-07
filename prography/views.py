@@ -2,7 +2,8 @@ from .models import Human
 from .serializers import HumanSerializer
 
 from django.shortcuts import HttpResponse, redirect
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 from django.core.cache import cache
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -63,7 +64,7 @@ class HumanLikeListView(ListView):
         return context
     
 
-class HumanLikeCreateUpdateView(CreateView, UpdateView):
+class HumanLikeDetailView(DetailView):
     model = Human
 
     def get(self, request, *args: str, **kwargs):
