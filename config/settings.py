@@ -140,5 +140,6 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
-    ]
+    ],
+    'NON_FIELD_ERRORS_KEY': "I used redis cache, so I souldn't change it"
 }
