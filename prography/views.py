@@ -40,7 +40,6 @@ class HumanListAPIView(APIView):
 
 class HumanLikeListView(ListView):
     model = Human
-    paginate_by = 5
     
     def get(self, request, *args, **kwargs):
         objects = Human.objects.all()
