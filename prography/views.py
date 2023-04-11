@@ -17,7 +17,6 @@ class HumanListAPIView(APIView):
     @swagger_auto_schema(
         operation_id='GET Human',
         operation_description='Human 데이터를 가져옵니다.',
-        query_serializer=HumanSerializer,
         tags=['Human']
     )
     def get(self, request):
