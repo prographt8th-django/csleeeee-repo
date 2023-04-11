@@ -7,7 +7,7 @@ from django.views.generic.detail import DetailView
 from django.core.cache import cache
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from rest_framework.views import APIView, Response
+from rest_framework.views import APIView, Response, status
 from drf_yasg.utils import swagger_auto_schema
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -33,8 +33,20 @@ class HumanListAPIView(APIView):
         serializer = HumanSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True): # 정보를 저장할 때 Serializer 에서 검사한다.
             serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class HumanDetailAPIView(APIView):
+    @swagger_auto_schema(
+        operation_id='DELETE Human',
+        operation_description='Human 데이터를 삭제합니다.',
+        tags=['Human']
+    )
+    def delete(self, request, pk):
+        model = Human.objects.get(id=pk)
+        model.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class HumanLikeListView(ListView):
