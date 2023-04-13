@@ -1,6 +1,16 @@
 import logging
+from django.http import JsonResponse
 
 logger = logging.getLogger(__name__)
+
+
+def get_response(message="", result={}, status=False, status_code=200):
+    return {
+        "message": message,
+        "result": result,
+        "status": status,
+        "status_code": status_code
+    }
 
 
 class RequestLogger:
@@ -10,6 +20,20 @@ class RequestLogger:
     def __call__(self, request):
 
         response = self.get_response(request)
-        logger.info(f"method={request.method} path={request}")  # response={response.data}
-        
+
+        if response.status_code == 500:
+            response = get_response(
+                message="Internal server error",
+                status_code=response.status_code
+            )
+
+        if response.status_code == 200:
+            response = get_response(
+                message="Success",
+                result=response.data,
+                status_code=response.status_code
+            )
+            return JsonResponse(response, status=response['status_code'])
+            
+
         return response
