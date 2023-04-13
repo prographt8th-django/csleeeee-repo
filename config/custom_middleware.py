@@ -13,7 +13,7 @@ def get_response(message="", result={}, status=False, status_code=200):
     }
 
 
-class RequestLogger:
+class RequestResponseMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
