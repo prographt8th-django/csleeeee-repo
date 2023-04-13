@@ -51,6 +51,15 @@ class HumanDetailAPIView(APIView):
 
 class HumanLikeListView(ListView):
     model = Human
+
+    # def get(self, request, *args, **kwargs):
+    #     objects = self.get_queryset()
+    #     object_ids = [obj.id for obj in objects]
+    #     cached_data = cache.get_many(object_ids)
+    #     for obj in objects:
+    #         if obj.id not in cached_data:
+    #             cache.set(obj.id, obj.likes, timeout=600)
+    #     return super().get(request,args, **kwargs)
     
     def get(self, request, *args, **kwargs):
         objects = Human.objects.all()
@@ -61,8 +70,6 @@ class HumanLikeListView(ListView):
                 cache value desc: {obj.id: obj.likes}
                 """
                 cache.set(obj.id, obj.likes, timeout=600)
-            else:
-                pass
 
         return super().get(request, *args, **kwargs)
     
@@ -82,7 +89,7 @@ class HumanLikeListView(ListView):
 class HumanLikeDetailView(DetailView):
     model = Human
 
-    def get(self, request, *args: str, **kwargs):
+    def get(self, request, *args, **kwargs):
         human_id = kwargs['pk']
 
         if cache.get(human_id) is not None:

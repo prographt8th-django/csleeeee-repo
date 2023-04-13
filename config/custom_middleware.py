@@ -11,5 +11,5 @@ class RequestLogger:
 
         response = self.get_response(request)
         logger.info(f"method={request.method} path={request}")  # response={response.data}
-
+        
         return response

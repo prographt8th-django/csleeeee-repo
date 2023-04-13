@@ -9,4 +9,4 @@ class HumanSerializer(ModelSerializer):
 		return attrs
 	class Meta:
 		model = Human
-		fields = ['id', 'name', 'description', 'created_at', 'updated_at']
+		fields = '__all__'
