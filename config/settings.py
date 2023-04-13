@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'config.custom_middleware.RequestLogger',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -142,4 +143,20 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ],
     'NON_FIELD_ERRORS_KEY': "ERROR"
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'xyz_console': {
+            'class': 'logging.StreamHandler'
+        }
+    },
+    'loggers': {
+        'config.custom_middleware': {
+            'handlers': ['xyz_console'],
+            'level': 'INFO'
+        }
+    }
 }
