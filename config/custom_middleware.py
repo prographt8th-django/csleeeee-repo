@@ -4,11 +4,10 @@ from django.http import JsonResponse
 logger = logging.getLogger(__name__)
 
 
-def get_response(message="", result={}, status=False, status_code=200):
+def get_response(message="", result={}, status_code=200):
     return {
         "message": message,
         "result": result,
-        "status": status,
         "status_code": status_code
     }
 
