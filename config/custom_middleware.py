@@ -1,7 +1,15 @@
-def view_process_time_middleware(get_response):
-    def middleware(request):
-        print("Before response", type(get_response), type(request), flush=True)
-        response = get_response(request)
-        print("After response", type(response), flush=True)
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+class RequestLogger:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+
+        response = self.get_response(request)
+        logger.info(f"method={request.method} path={request} response={response.data}")
+
         return response
-    return middleware
