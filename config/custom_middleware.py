@@ -33,6 +33,14 @@ class RequestResponseMiddleware:
                 status_code=response.status_code
             )
             return JsonResponse(response, status=response['status_code'])
+        
+        if response.status_code == 201:
+            response = get_response(
+                message="Created",
+                result=response.data,
+                status_code=response.status_code
+            )
+            return JsonResponse(response, status=response['status_code'])
             
 
         return response
