@@ -1,3 +1,4 @@
+import json
 import logging
 from django.http import JsonResponse
 
@@ -19,28 +20,5 @@ class RequestResponseMiddleware:
     def __call__(self, request):
 
         response = self.get_response(request)
-
-        if response.status_code == 500:
-            response = get_response(
-                message="Internal server error",
-                status_code=response.status_code
-            )
-
-        if response.status_code == 200:
-            response = get_response(
-                message="Success",
-                result=response.data,
-                status_code=response.status_code
-            )
-            return JsonResponse(response, status=response['status_code'])
-        
-        if response.status_code == 201:
-            response = get_response(
-                message="Created",
-                result=response.data,
-                status_code=response.status_code
-            )
-            return JsonResponse(response, status=response['status_code'])
-            
 
         return response
