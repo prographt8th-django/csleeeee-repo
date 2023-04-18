@@ -1,3 +1,4 @@
+from django.http import Http404
 from .models import Human
 from .serializers import HumanSerializer
 
@@ -38,6 +39,26 @@ class HumanListAPIView(APIView):
     
 
 class HumanDetailAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Human.objects.get(pk=pk)
+        except Human.DoesNotExist:
+            raise Http404
+
+    @swagger_auto_schema(
+        operation_id='PUT Human',
+        operation_description='Human 데이터를 수정합니다.',
+        request_body=HumanSerializer,
+        tags=['Human']
+    )    
+    def put(self, request, pk, format=None):
+        human = self.get_object(pk)
+        serializer = HumanSerializer(human, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     @swagger_auto_schema(
         operation_id='DELETE Human',
         operation_description='Human 데이터를 삭제합니다.',
