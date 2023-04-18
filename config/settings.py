@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'prography',
     'rest_framework',
     'drf_yasg',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
