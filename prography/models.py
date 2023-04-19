@@ -1,5 +1,7 @@
 from django.db import models
 
+from config.exceptions import exception
+
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,3 +18,7 @@ class Human(BaseModel):
 
     def __str__(self):
         return f"{self.name}-{self.likes}"
+    
+    def save(self, *args, **kwargs):
+        if self.likes != 0:
+            raise exception.OnlyCache
