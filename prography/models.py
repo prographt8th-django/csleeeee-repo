@@ -21,4 +21,6 @@ class Human(BaseModel):
     
     def save(self, *args, **kwargs):
         if self.likes != 0:
-            raise exception.OnlyCache
+            return exception.OnlyCache
+        else:
+            super(Human, self).save(*args, **kwargs)
