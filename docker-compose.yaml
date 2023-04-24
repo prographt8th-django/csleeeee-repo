@@ -17,4 +17,7 @@ services:
   redis:
     image: redis
     container_name: redis
+    command: redis-server --port 6379
     platform: linux/amd64
+    ports:
+      - '6379:6379'
