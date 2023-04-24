@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from .models import Human
+from config.exceptions import exception
 
 
 class HumanTestCase(TestCase):
@@ -10,3 +11,7 @@ class HumanTestCase(TestCase):
     def test_human_name(self):
         human = Human.objects.get(pk=1)
         self.assertEqual(human.name, 'cslee')
+
+    def test_human_likes_exception_onlycache(self):
+        with self.assertRaises(exception.OnlyCache):
+            Human.objects.create(name="kim", description="kimchi", likes=1)
