@@ -10,9 +10,9 @@ jobs:
   build:
     runs-on: [ubuntu-latest]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3 # * checkout을 위한 토큰 설정부터, 저장소 복사까지 많은 일 수행
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v4 # * github actions 으로 Python 사용하는 데 권장
       with:
         python-version: "3.10"
     - name: Run Poetry
@@ -22,3 +22,6 @@ jobs:
     - name: poetry version check
       run: |
         poetry --version
+    - name: Run test
+      run: |
+        poetry run python manage.py test
