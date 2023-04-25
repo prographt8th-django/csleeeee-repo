@@ -19,9 +19,9 @@ jobs:
       uses: Gr1N/setup-poetry@v8
       with:
         poetry-version: "1.4.1"
-    - name: poetry version check
+    - name: Run poetry install
       run: |
-        poetry --version
+        poetry install
     - name: Run test
       run: |
         poetry run python manage.py test
