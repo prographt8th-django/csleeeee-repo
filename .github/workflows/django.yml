@@ -14,7 +14,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4 # * github actions 으로 Python 사용하는 데 권장
     - run: |
-        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | pyt
+        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
         echo "$HOME/.poetry/bin" >> $GITHUB_PATH
     # - name: Run Poetry
     #   uses: Gr1N/setup-poetry@v7
